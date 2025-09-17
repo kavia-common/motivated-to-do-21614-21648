@@ -17,6 +17,15 @@ Copy `.env.example` to `.env` and set values:
 - `REACT_APP_BACKEND_URL`
 - `REACT_APP_SITE_URL` (public frontend URL used in email redirect)
 
+## Supabase Dashboard Setup (IMPORTANT)
+1. Authentication > URL Configuration:
+   - Site URL: your frontend URL (e.g., http://localhost:3000 in dev)
+   - Redirect URLs:
+     - http://localhost:3000/**
+     - https://yourapp.com/** (replace with your production domain)
+2. Authentication > Providers: Enable Email/Password.
+3. (Optional) Authentication > Email Templates: customize if needed.
+
 ## Development
 Install dependencies and start:
 
@@ -25,7 +34,7 @@ npm install
 npm start
 ```
 
-Note: Tailwind CSS builds on `npm run build` automatically. For a manual CSS build during development you can run:
+Tailwind CSS is built as part of `npm run build`. For a manual CSS build during development:
 ```bash
 npm run build:css
 ```
@@ -33,13 +42,17 @@ and restart dev server if needed.
 
 ## Supabase Table
 Create a `todos` table with columns:
-- `id: uuid (primary key, default uuid_generate_v4())`
+- `id: uuid (primary key, default gen_random_uuid())`
 - `user_id: uuid (references auth.users.id) with RLS policies restricting to current_user`
 - `title: text`
 - `completed: boolean default false`
-- `created_at: timestamp default now()`
+- `created_at: timestamptz default now()`
 
 Enable RLS and add policies to allow CRUD for authenticated users on their own rows.
+See `assets/supabase.md` for the exact SQL and policies used by this project.
+
+## Auth Callback
+This app includes a lightweight callback handler at `src/components/AuthCallback.js`. Configure email redirects to `${SITE_URL}/auth/callback`. With supabase-js v2 and `detectSessionInUrl: true`, sessions are handled automatically.
 
 ## Styling
 Theme colors:

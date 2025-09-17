@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getSupabaseClient } from "../lib/supabaseClient";
+import { getURL } from "../lib/getURL";
 
 /**
  * PUBLIC_INTERFACE
@@ -24,7 +25,7 @@ export default function AuthForm({ onAuth }) {
           email,
           password,
           options: {
-            emailRedirectTo: process.env.REACT_APP_SITE_URL || window.location.origin,
+            emailRedirectTo: `${getURL()}auth/callback`,
           }
         });
         if (err) throw err;

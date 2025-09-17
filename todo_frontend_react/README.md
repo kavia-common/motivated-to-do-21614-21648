@@ -1,82 +1,58 @@
-# Lightweight React Template for KAVIA
+# Motivated To-Do – React Frontend
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+Modern, mobile-responsive React app styled with Tailwind CSS (Ocean Professional theme). Integrates Supabase for authentication and data, and a FastAPI backend for health and quotes.
 
 ## Features
+- Tailwind CSS + Ocean Professional theme (blue/amber, gradients, subtle shadows)
+- Supabase Auth: sign up, sign in, session persistence
+- Todo CRUD UI connected to Supabase table `todos`
+- Motivational Quote panel via FastAPI `/quote`
+- Health badge via FastAPI `/health`
+- Clean component separation
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+## Environment Variables
+Copy `.env.example` to `.env` and set values:
+- `REACT_APP_SUPABASE_URL`
+- `REACT_APP_SUPABASE_ANON_KEY`
+- `REACT_APP_BACKEND_URL`
+- `REACT_APP_SITE_URL` (public frontend URL used in email redirect)
 
-## Getting Started
+## Development
+Install dependencies and start:
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+```bash
+npm install
+npm start
 ```
 
-### Components
+Note: Tailwind CSS builds on `npm run build` automatically. For a manual CSS build during development you can run:
+```bash
+npm run build:css
+```
+and restart dev server if needed.
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+## Supabase Table
+Create a `todos` table with columns:
+- `id: uuid (primary key, default uuid_generate_v4())`
+- `user_id: uuid (references auth.users.id) with RLS policies restricting to current_user`
+- `title: text`
+- `completed: boolean default false`
+- `created_at: timestamp default now()`
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+Enable RLS and add policies to allow CRUD for authenticated users on their own rows.
 
-## Learn More
+## Styling
+Theme colors:
+- Primary: #2563EB
+- Secondary: #F59E0B
+- Error: #EF4444
+- Background: #f9fafb
+- Surface: #ffffff
+- Text: #111827
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Applied with rounded corners, gradients, and subtle shadows for a modern minimal look.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Build
+```bash
+npm run build
+```

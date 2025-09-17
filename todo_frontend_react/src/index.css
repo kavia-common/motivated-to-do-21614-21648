@@ -1,13 +1,47 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ocean Professional theme variables for non-TW parts */
+:root {
+  --ocean-primary: #2563EB;
+  --ocean-secondary: #F59E0B;
+  --ocean-error: #EF4444;
+  --ocean-surface: #ffffff;
+  --ocean-background: #f9fafb;
+  --ocean-text: #111827;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Smooth transitions and minimal rounded aesthetic */
+* {
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-[var(--ocean-background)] text-[var(--ocean-text)];
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+
+/* Reusable components */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium text-white bg-ocean-primary hover:bg-blue-700 transition-all shadow-sm;
+}
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 transition-all;
+}
+.input {
+  @apply w-full rounded-lg border border-gray-200 bg-white px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition;
+}
+.card {
+  @apply bg-white rounded-xl shadow-subtle border border-gray-100;
+}
+badge {
+  @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-800;
 }
